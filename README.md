@@ -94,15 +94,9 @@ For example, the following application defines a store named `Count` and uses it
 
 ```
 application
-  define Min 0
-  
   store Count {
-    `default` = Min
+    `default` = 0
   }
-  
-  write Count
-    cause html:click 'button'
-    chain Count + 1
   
   effect html:render
     read Count
@@ -111,6 +105,10 @@ application
         [ Count ]
       </button>
     `
+  
+  write Count
+    cause html:click 'button'
+    chain Count + 1
 ```
 
 #### `cause`
