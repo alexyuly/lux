@@ -25,7 +25,7 @@ The above source code will compile into an executable application which prints t
 ### Declarations
 
 A **declaration** is one of the following:
-- a constant value
+- a value, which is an immutable data structure
 - `function`, which is a stateless unit of synchronous computation
   - may accept a parameter, which is a value or a function
 - a component, which is a stateful unit of asynchronous processing
@@ -69,16 +69,47 @@ A **statement** controls the flow of data within a component declaration or with
 
 #### `define`
 
-A `define` statement creates an immutable reference to a constant value. For example, the following application defines a reference named `Message` and prints it twice:
+A `define` statement creates an immutable reference to a value. For example, the following application defines a reference named `Message` and prints it twice:
 
 ```
 application
   define Message 'Hello, world!'
-
+  
   effect system:out
     cause `
       [ Message ]
       [ Message ]
+    `
+```
+
+#### `store`, `write`, and `read`
+
+A `store` statement creates a mutable reference to a value.
+
+*TODO: Add information about store's syntax.*
+
+*TODO: Add information about read and write statements.*
+
+For example, the following application defines a store named `Count` and uses it to respond and render HTML:
+
+```
+application
+  define Min 0
+  
+  store Count {
+    `default` = Min
+  }
+  
+  write Count
+    cause html:click 'button'
+    chain Count + 1
+  
+  effect html:render
+    read Count
+    chain html:parse `
+      <button>
+        [ Count ]
+      </button>
     `
 ```
 
