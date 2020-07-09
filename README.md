@@ -17,7 +17,7 @@ Here is a very simple example of a lux source code file:
 ```
 application
   effect system:out
-    cause 'Hello, world!'
+    cause `Hello, world!`
 ```
 
 The above source code will compile into an executable application which prints the text `Hello, world!` to the system terminal.
@@ -73,7 +73,7 @@ A `define` statement creates an immutable reference to a value. For example, the
 
 ```
 application
-  define Message 'Hello, world!'
+  define Message `Hello, world!`
   
   effect system:out
     cause `
