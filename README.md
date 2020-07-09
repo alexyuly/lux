@@ -33,20 +33,16 @@ A **declaration** is one of the following:
   - may have `input` and `output`, to connect with other components
   - has one of the following keywords:
     - `application`
-      - does not support `input`
-      - does not support `output`
+      - supports `cause` and `effect` statements
       - construct a new one by invoking with the interpreter
     - `publisher`
-      - does not support `input`
-      - supports `output`
+      - supports `cause` and `output` statements
       - construct a new one using the `cause` keyword
     - `processor`
-      - supports `input`
-      - supports `output`
+      - supports `input` and `output` statements
       - construct a new one using the `chain` keyword
     - `subscriber`
-      - supports `input`
-      - does not support `output`
+      - supports `input` and `effect` statements
       - construct a new one using the `effect` keyword
 
 Each lux source code file contains a single declaration at the first indentation level, called the **root declaration**. Other declarations, at subsequent indentation levels nested within the root, are called **inline declarations**.
