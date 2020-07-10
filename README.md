@@ -57,9 +57,9 @@ Many languages represent processing with *control flow*, but lux centers around 
 
 #### `cause` and `effect`
 
-The primary statements are `cause` and `effect`. A cause represents an origin of values from hardware over time, while an effect represents a destination for values from hardware over time.
+The primary statements are `cause` and `effect`. A cause represents an origin of values from hardware over time, while an effect represents a destination for values to hardware over time.
 
-Each effect has a reference to a subscriber and a set of child causes. Each cause has either a value or a reference to a publisher.
+Each effect has a reference to a subscriber and a set of child causes. Each cause has either a value or a reference to a publisher. The values published by a cause are sent to the subscriber of its parent effect.
 
 For example, the following application prints the text `Hello, world!` to the system output:
 
@@ -70,6 +70,8 @@ application
 ```
 
 #### `chain`
+
+A `chain` statement immediately follows a cause, intercepting published values and transforming them before sending them on.
 
 *TODO*
 
@@ -91,10 +93,10 @@ application
   define Message `Hello, world!`
   
   effect system:out
-  cause `
-    [ Message ]
-    [ Message ]
-  `
+    cause `
+      [ Message ]
+      [ Message ]
+    `
 ```
 
 #### `store`, `write`, and `read`
