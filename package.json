@@ -1,0 +1,29 @@
+{
+  "name": "lux",
+  "version": "1.0.0",
+  "description": "the lux software development kit",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexyuly/lux.git"
+  },
+  "author": "Alex Yuly",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexyuly/lux/issues"
+  },
+  "homepage": "https://github.com/alexyuly/lux#readme",
+  "devDependencies": {
+    "husky": "4.2.5",
+    "prettier": "2.0.5",
+    "pretty-quick": "2.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}

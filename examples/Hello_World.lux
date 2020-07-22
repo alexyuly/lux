@@ -1,0 +1,5 @@
+application
+  effect system:out
+    cause `
+      Hello, world!
+    `
