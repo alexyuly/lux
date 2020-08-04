@@ -1,60 +1,49 @@
-module.exports = function parse(source) {
-  const lines = source.split("\n");
+module.exports = function parse(lux) {
+  const lines = lux.split("\n");
   const stack = [];
-
   for (const line of lines) {
     if (stack.length === 0) {
       if (line === "application") {
         stack.push({
-          declaration: "application",
-          statements: [],
+          type: "application",
+          children: [],
         });
       }
     } else {
       const cursor = stack.pop();
-      if (
-        cursor.declaration === "application" &&
-        line.startsWith("  effect ")
-      ) {
+      if (cursor.type === "application" && line.startsWith("  effect ")) {
         const effect = {
-          statement: "effect",
-          consumer: {
-            subscriber: line.split("  effect ")[1],
-          },
-          statements: [],
+          type: "effect",
+          subscriber: line.split("  effect ")[1],
+          children: [],
         };
-        cursor.statements.push(effect);
+        cursor.children.push(effect);
         stack.push(cursor);
         stack.push(effect);
-      } else if (
-        cursor.statement === "effect" &&
-        line.startsWith("    cause ")
-      ) {
+      } else if (cursor.type === "effect" && line.startsWith("    cause ")) {
         const cause = {
-          statement: "cause",
-          producer: {},
+          type: "cause",
         };
         if (line.split("    cause ")[1] === "`") {
-          cause.producer.string = null;
+          cause.string = null;
         }
-        cursor.statements.push(cause);
+        cursor.children.push(cause);
         stack.push(cursor);
         stack.push(cause);
       } else if (
-        cursor.statement === "cause" &&
-        "string" in cursor.producer &&
+        cursor.type === "cause" &&
+        "string" in cursor &&
         !line.startsWith("    `")
       ) {
-        if (cursor.producer.string === null) {
-          cursor.producer.string = line.slice(6);
+        if (cursor.string === null) {
+          cursor.string = line.slice(6);
           stack.push(cursor);
         } else {
-          cursor.producer.string += line.slice(6);
+          cursor.string += line.slice(6);
           stack.push(cursor);
         }
       }
     }
   }
-
   return stack.pop();
 };

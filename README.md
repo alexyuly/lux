@@ -1,7 +1,5 @@
 # lux
 
-Under Development
+## Hello_World
 
-[ ] Parser (in progress)
-[ ] Compiler
-[ ] Interpreter
+`node ./main.js ./examples/Hello_World.lux`
